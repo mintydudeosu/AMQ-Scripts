@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Fastest Guesser
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqFastestGuesser.user.js
 // @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqFastestGuesser.user.js
 // @description  An extension to Joseph's Song List UI which displays the fastest guesser within the song info window
@@ -51,7 +51,7 @@ window.setTimeout(() => {
             `;
 
             for(let i = 0; i < fastestGuesser.names.length; i++)
-                fastestGuesserRow.children[0].innerHTML += `${fastestGuesser.names[i]} (${fastestGuesser.time}ms)\n`;
+                fastestGuesserRow.children[0].innerHTML += `${fastestGuesser.names[i]} (${fastestGuesser.time}ms)<br>`;
 
             songInfoPanel.insertBefore(fastestGuesserRow, songInfoPanel.lastChild);
         }
