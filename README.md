@@ -12,3 +12,6 @@ This script also contains a couple of settings editable in the **Graphics** tab 
 It's also worth noting I play on 125% zoom so the screenshots will look slightly bigger than what you'd actually see.
 ![Example screenshot of AMQ styling](https://github.com/mintydudeosu/AMQ-Scripts/assets/139930764/4dc4e738-2148-4d39-8006-c664cbc22561)
 ___
+## AMQ Fastest Guesser
+A simple script which builds on top of [Joseph's Song List UI](https://github.com/TheJoseph98/AMQ-Scripts#song-list-ui-amqsonglistuiuserjs) and shows who guessed the fastest inside the Song Info window.
+___
