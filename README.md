@@ -14,5 +14,6 @@ It's also worth noting I play on 125% zoom so the screenshots will look slightly
 ___
 ## AMQ Fastest Guesser
 A simple script which builds on top of [Joseph's Song List UI](https://github.com/TheJoseph98/AMQ-Scripts#song-list-ui-amqsonglistuiuserjs) and shows who guessed the fastest inside the Song Info window.
+
 ![Example screenshot 1](https://github.com/mintydudeosu/AMQ-Scripts/assets/139930764/a741a5f8-c145-4ec4-b146-e7fee539dcbe) ![Example screenshot 2 - multiple people with the same time](https://github.com/mintydudeosu/AMQ-Scripts/assets/139930764/b0e30a7c-e26b-4feb-b93c-936835da566b)
 ___
