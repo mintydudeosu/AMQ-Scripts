@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Styling
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @description  make amq look decent :thumbsup:
@@ -820,13 +820,28 @@ function scriptsLoaded() {
 
         .ppBadgeContainer {
             border: 2px solid #1b1b1b;
+            border-left: none;
             background-color: rgba(27, 27, 27, 0.4);
             position: absolute;
             top: 55px;
             right: 0;
             height: 60px;
             width: calc(100% - 107px);
-            overflow: hidden;
+            /*overflow: hidden;*/
+        }
+
+        .ppBadgeOptions {
+            right: -205px;
+        }
+
+        .ppBadgeOptionProfileBody {
+            height: 109px;
+        }
+
+        .ppImageSelector {
+            width: calc(100% + 2px);
+            left: -1px;
+            top: -4px;
         }
 
         .ppHeader {
@@ -841,11 +856,16 @@ function scriptsLoaded() {
 
         .ppImageContainer > img {
             width: 107px;
+            border-right: 2px solid #1b1b1b;
         }
 
         .playerProfileContainer {
             width: 307px;
             margin-left: 7px;
+        }
+
+        .ppBadgeNoBadgeText {
+            display: none;
         }
 
         .ppPlayerName, .ppPlayerOriginalName {
@@ -1413,11 +1433,6 @@ function scriptsLoaded() {
             background-color: rgba(255, 255, 255, 0.2);
         }
 
-        .ppBadgeOptions {
-            position: fixed;
-
-        }
-
         #loadingScreen .center-div {
             background-color: rgba(44, 44, 44, 0.5) !important;
             border: 1px solid #ffffff;
@@ -1437,6 +1452,7 @@ function scriptsLoaded() {
         #lobbyAvatarContainer {
             height: 100%;
             top: 0;
+            padding-top: 30px;
         }
 
         /* this is actually top left :thumbsup: */
@@ -1485,6 +1501,71 @@ function scriptsLoaded() {
         #qpQualityList li.selected {
             background-color: rgba(109, 109, 109, 0.4);
             transition: background-color 100ms ease-in-out;
+        }
+
+        .mpNewsBottomTab {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: none;
+            border-top: 1px solid #ffffff !important;
+        }
+
+        .mpNewsBottomTab .leftRightButtonTop {
+            background: transparent;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .mpNewsBottomTab .leftRightButtonTop > div {
+            transform: none;
+            margin-top: 7px;
+        }
+
+        .mpNewsBottomTab > .mpNewsBottomContainer {
+            margin-top: 5px;
+        }
+
+        .lobbyAvatarImgContainer {
+            background: transparent;
+            border: 2px solid #ffffff;
+        }
+
+        .lobbyAvatarNameContainer, .lobbyAvatarSubTextContainer {
+            background-color: rgba(0, 0, 0, 0.3) !important;
+            border: 2px solid #ffffff;
+            backdrop-filter: blur(3px);
+        }
+
+        .lobbyAvatarSubTextContainer {
+            border-top: none;
+        }
+
+        .lobbyAvatarHostSubTextContainer {
+            border-top: 2px solid #ffffff;
+            border-bottom: none;
+        }
+
+        .lobbyAvatarHostSubTextContainer h3 {
+            margin-top: -1px !important;
+        }
+
+        .lobbyAvatar.lbReady .lobbyAvatarNameContainer, .lobbyAvatar.lbReady .lobbyAvatarSubTextContainer, .lobbyAvatar.lbReady .lobbyAvatarImgContainer {
+            border-color: rgba(68, 151, 234);
+        }
+
+        .lobbyAvatarRow.left .lobbyAvatarImgContainer {
+            right: 2px;
+        }
+
+        .lobbyAvatarRow.right .lobbyAvatarImgContainer {
+            left: 2px;
+        }
+
+        .lobbyAvatarLevelContainer .lobbyAvatarPlayerOptions {
+            display: none;
+        }
+
+        #mhResetDefaultButton {
+            padding: 6px;
         }
     `;
     document.getElementsByTagName("head")[0].appendChild(globalStyles);
@@ -1642,6 +1723,11 @@ function scriptsLoaded() {
 
     document.getElementById("menuBarOptionContainer").dataset.toggle = "modal";
     document.getElementById("menuBarOptionContainer").dataset.target = "#settingModal";
+
+    let lobbyAvatarObserver = new MutationObserver(() => {
+        colourLobbyAvatars();
+    });
+    lobbyAvatarObserver.observe(document.getElementById("lobbyAvatarContainer"), { childList: true, subtree: true });
 
     AMQ_addScriptData({
         name: "AMQ Styling",
@@ -1805,5 +1891,34 @@ function colourShopIcon() {
           let color = colorThief.getColor(img);
           background.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
       });
+    }
+}
+
+function colourLobbyAvatars() {
+    let avatars = document.getElementsByClassName("lobbyAvatar");
+    for(let i = 0; i < avatars.length; i++) {
+        let imgContainer = avatars[i].getElementsByClassName("lobbyAvatarImgContainer")[0];
+        let img = imgContainer.getElementsByClassName("avatarImage")[0];
+        img.crossOrigin = "Anonymous";
+        let colorThief = new ColorThief();
+
+        console.log(colorThief);
+
+        if (img.complete && !img.classList.contains("loading")) {
+            console.log(img);
+            let color = colorThief.getColor(img, 5);
+            imgContainer.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+        } else {
+            img.addEventListener('load', function() {
+                console.log(img);
+                let color = colorThief.getColor(img, 5);
+                imgContainer.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            });
+        }
+
+        let nameContainer = avatars[i].getElementsByClassName("lobbyAvatarNameContainer")[0];
+        nameContainer.classList.add("playerCommandProfileIcon", "clickAble");
+        imgContainer.classList.add("playerCommandProfileIcon", "clickAble");
+        lobby.players[i].lobbySlot.setupAvatarOptions();
     }
 }
