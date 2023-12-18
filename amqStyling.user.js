@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Styling
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @description  make amq look decent :thumbsup:
@@ -1530,7 +1530,7 @@ function scriptsLoaded() {
         }
 
         .lobbyAvatarNameContainer, .lobbyAvatarSubTextContainer {
-            background-color: rgba(0, 0, 0, 0.3) !important;
+            background-color: rgba(0, 0, 0, 0.5) !important;
             border: 2px solid #ffffff;
             backdrop-filter: blur(3px);
         }
@@ -1566,6 +1566,52 @@ function scriptsLoaded() {
 
         #mhResetDefaultButton {
             padding: 6px;
+        }
+
+        #brMap {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            border: 2px solid #ffffff;
+        }
+
+        #loadBalanceStatusContainer {
+            background: transparent;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #ffffff;
+        }
+
+        #loadBalanceStatusContainer:hover {
+            background-color: rgba(109, 109, 109, 0.4);
+            transition: background-color 100ms ease-in-out;
+        }
+
+        #loadBalanceStatusMainContainer {
+            border: 1px solid #ffffff;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            border: 1px solid #ffffff;
+        }
+
+        .brTile {
+            border: 2px solid #888888;
+        }
+
+        .brMapObject {
+            border: solid 2px #d9d9d9;
+        }
+
+        .brContainerEntry > i {
+            left: 8px;
+        }
+
+        #brMapContainer .popover {
+            border: 1px solid #d9d9d9;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+        }
+
+        #brMapContainer .popover .arrow {
+            display: none;
         }
     `;
     document.getElementsByTagName("head")[0].appendChild(globalStyles);
@@ -1896,29 +1942,31 @@ function colourShopIcon() {
 
 function colourLobbyAvatars() {
     let avatars = document.getElementsByClassName("lobbyAvatar");
-    for(let i = 0; i < avatars.length; i++) {
-        let imgContainer = avatars[i].getElementsByClassName("lobbyAvatarImgContainer")[0];
+    for(let i = 0; i < Object.keys(lobby.players).length; i++) {
+        let player = lobby.players[Object.keys(lobby.players)[i]];
+        let avatar = player.lobbySlot.$LOBBY_SLOT[0];
+        let imgContainer = avatar.getElementsByClassName("lobbyAvatarImgContainer")[0];
         let img = imgContainer.getElementsByClassName("avatarImage")[0];
         img.crossOrigin = "Anonymous";
         let colorThief = new ColorThief();
 
-        console.log(colorThief);
+        //console.log(colorThief);
 
-        if (img.complete && !img.classList.contains("loading")) {
-            console.log(img);
+        if (img.complete && !img.classList.contains("loading") && img.src != "") {
+            //console.log(img);
             let color = colorThief.getColor(img, 5);
             imgContainer.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
         } else {
             img.addEventListener('load', function() {
-                console.log(img);
+                //console.log(img);
                 let color = colorThief.getColor(img, 5);
                 imgContainer.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
             });
         }
 
-        let nameContainer = avatars[i].getElementsByClassName("lobbyAvatarNameContainer")[0];
+        let nameContainer = avatar.getElementsByClassName("lobbyAvatarNameContainer")[0];
         nameContainer.classList.add("playerCommandProfileIcon", "clickAble");
         imgContainer.classList.add("playerCommandProfileIcon", "clickAble");
-        lobby.players[i].lobbySlot.setupAvatarOptions();
+        player.lobbySlot.setupAvatarOptions();
     }
 }
