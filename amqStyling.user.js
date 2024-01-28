@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Styling
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @description  make amq look decent :thumbsup:
@@ -1613,6 +1613,12 @@ function scriptsLoaded() {
         #brMapContainer .popover .arrow {
             display: none;
         }
+
+        #gcBossModeContainer {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid #ffffff;
+        }
     `;
     document.getElementsByTagName("head")[0].appendChild(globalStyles);
 
@@ -1919,7 +1925,8 @@ function ticketObserverCallback() {
 function organiseAvatars() {
     let avatarStatuses = document.getElementsByClassName("qpAvatarStatusOuterContainer");
     for(let i = 0; i < avatarStatuses.length; i++) {
-        avatarStatuses[i].parentElement.parentElement.getElementsByClassName("qpAvatarImageContainer")[0].appendChild(avatarStatuses[i]);
+        if(avatarStatuses[i].parentElement.parentElement.getElementsByClassName("qpAvatarImageContainer").length > 0)
+            avatarStatuses[i].parentElement.parentElement.getElementsByClassName("qpAvatarImageContainer")[0].appendChild(avatarStatuses[i]);
     }
 }
 
