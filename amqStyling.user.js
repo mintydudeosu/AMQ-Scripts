@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Styling
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.4.1
 // @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @description  make amq look decent :thumbsup:
@@ -1758,9 +1758,22 @@ function scriptsLoaded() {
         nameHiderCallback();
         infoHiderCallback();
         videoHiderCallback();
-        organiseAvatars();
     });
     quizReadyListener.bindListener();
+
+    /*let joinGameListener = new Listener("Join Game", (data) => {
+        console.log("joined game");
+
+        nameHiderCallback();
+        infoHiderCallback();
+        videoHiderCallback();
+    });
+    joinGameListener.bindListener();*/
+
+    let resultListener = new Listener("player answers", (data) => {
+        organiseAvatars();
+    });
+    resultListener.bindListener();
 
     let useAvatarListener = new Listener("use avatar", (data) => {
         //console.log(data);
@@ -1924,6 +1937,8 @@ function ticketObserverCallback() {
 
 function organiseAvatars() {
     let avatarStatuses = document.getElementsByClassName("qpAvatarStatusOuterContainer");
+
+    //console.log(avatarStatuses);
     for(let i = 0; i < avatarStatuses.length; i++) {
         if(avatarStatuses[i].parentElement.parentElement.getElementsByClassName("qpAvatarImageContainer").length > 0)
             avatarStatuses[i].parentElement.parentElement.getElementsByClassName("qpAvatarImageContainer")[0].appendChild(avatarStatuses[i]);
