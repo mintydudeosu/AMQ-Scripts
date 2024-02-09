@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Styling
 // @namespace    http://tampermonkey.net/
-// @version      1.4.1
+// @version      1.4.2
 // @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @description  make amq look decent :thumbsup:
@@ -60,11 +60,14 @@ function scriptsLoaded() {
 
     let inputBoxCharacter = document.createElement("img");
     inputBoxCharacter.classList.add("inputBoxCharacter");
-    let avatar = storeWindow.activeAvatar;
-    inputBoxCharacter.src = cdnFormater.newAvatarHeadSrc(avatar.avatarName, avatar.outfitName, avatar.optionName, avatar.optionActive, avatar.colorName);
-    let qpAnswerInputContainer = document.getElementById("qpAnswerInputContainer");
-    //console.log(qpAnswerInputContainer.children.length);
-    qpAnswerInputContainer.appendChild(inputBoxCharacter);
+
+    window.setTimeout(() => {
+        let avatar = storeWindow.activeAvatar;
+        inputBoxCharacter.src = cdnFormater.newAvatarHeadSrc(avatar.avatarName, avatar.outfitName, avatar.optionName, avatar.optionActive, avatar.colorName);
+        let qpAnswerInputContainer = document.getElementById("qpAnswerInputContainer");
+        //console.log(qpAnswerInputContainer.children.length);
+        qpAnswerInputContainer.appendChild(inputBoxCharacter);
+    }, 2000);
 
     let settingsDiv = document.createElement("div");
     settingsDiv.classList.add("row");
