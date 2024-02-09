@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name                  AMQ Extra Emotes
 // @namespace             http://tampermonkey.net/
-// @version               0.6
-// @updateURL             https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqExtraEmotes.user.js
-// @downloadURL           https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqExtraEmotes.user.js
+// @version               0.6.1
+// @updateURL             https://www.mintydude.com/amqemotes.user.js
+// @downloadURL           https://www.mintydude.com/amqemotes.user.js
 // @description           Adds missing emotes to AMQ, like :handshake:
 // @author                MintyDude
 // @match                 https://animemusicquiz.com/*
@@ -31,7 +31,7 @@ AMQ_addScriptData({
 // not waiting caused issues sometimes since the game tries accessing emojis while they're still being populated or something
 function waitForLoad() {
     if(document.querySelector("*[id^=qpMoePlayer-1]"))
-        return scriptsLoaded();
+        return window.setTimeout(scriptsLoaded, 3000);
     window.setTimeout(waitForLoad, 500);
 }
 waitForLoad();
@@ -80,6 +80,7 @@ function scriptsLoaded() {
         let codeMap = {};
         getShortCodesInMessage(text).forEach((shortcode) => {
             let unicodes = NEW_EMOJI_SHORTCODE_MAP[shortcode];
+
             let unicodeKey = unicodes.map(entry => entry.toString(16)).join('-');
             codeMap[unicodeKey] = shortcode;
             if(unicodes){
@@ -172,6 +173,7 @@ function scriptsLoaded() {
 
     GameChat.prototype.sendMessage = function () {
         let msg = this.$chatInputField.val().trim();
+
         msg = translateShortcodeToUnicode(msg).text;
 
         //console.log(msg);
