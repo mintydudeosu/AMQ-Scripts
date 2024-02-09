@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name                  AMQ Extra Emotes
 // @namespace             http://tampermonkey.net/
-// @version               0.6.1
-// @updateURL             https://www.mintydude.com/amqemotes.user.js
-// @downloadURL           https://www.mintydude.com/amqemotes.user.js
+// @version               0.6.2
+// @updateURL             https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqExtraEmotes.user.js
+// @downloadURL           https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqExtraEmotes.user.js
 // @description           Adds missing emotes to AMQ, like :handshake:
 // @author                MintyDude
 // @match                 https://animemusicquiz.com/*
