@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Styling
 // @namespace    http://tampermonkey.net/
-// @version      1.4.3
+// @version      1.4.4
 // @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqStyling.user.js
 // @description  make amq look decent :thumbsup:
@@ -1748,9 +1748,9 @@ function scriptsLoaded() {
     videoHiderObserver.observe(document.querySelector("*[id^=qpMoePlayer-0]"), { attributes: true });
     videoHiderObserver.observe(document.getElementById("qpCenterInfoContainer"), { childList: true });
 
-    let expandHiderObserver = new MutationObserver(expandHiderCallback);
+    /*let expandHiderObserver = new MutationObserver(expandHiderCallback);
     expandHiderObserver.observe(document.getElementById("elQuestionNoSongSelectedContainer"), { attributes: true });
-    expandHiderCallback();
+    expandHiderCallback();*/
 
     let ticketObserver = new MutationObserver(ticketObserverCallback);
     ticketObserver.observe(document.getElementById("swTicketAvatarLockingContainerOuter"), { attributes: true });
