@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         AMQ Custom Quiz Exporter
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
+// @updateURL    https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqCustomQuizExporter.user.js
+// @downloadURL  https://raw.githubusercontent.com/mintydudeosu/AMQ-Scripts/main/amqCustomQuizExporter.user.js
 // @description  Export songs in a Custom Quiz as JSON (anisongdb format)
 // @author       MintyDude
 // @match        https://animemusicquiz.com/
@@ -157,4 +159,5 @@ function scriptsLoaded() {
             });
         };
     });
+
 }
